@@ -1,0 +1,157 @@
+using System;
+class HelloWorld {
+  static void Main() {
+      
+    Console.WriteLine("Введите количество элементов массива");
+    
+    int n = Convert.ToInt32(Console.ReadLine());
+    int [] a = new int [n];
+    bool f = true;
+    int min = 100000;
+    int max = -100000;
+    int counter = 0;
+    int mn = 0;
+    int mx = 0;
+    bool r = false;
+    bool e = false;
+    int nol = -1;
+    
+    Console.WriteLine("Введите элементы массива");
+    
+    for (int i = 0; i < a.Length; i++)
+    {
+        a[i] = Convert.ToInt32(Console.ReadLine());
+    }
+    
+    for (int i = 0; i < a.Length; i++) // Все ли элементы кратны своему номеру?
+    {
+        if (a[i] % (i+1) != 0)
+        {
+            f = false;
+            break;
+        }
+    }
+    if (f == true)
+        Console.WriteLine("Все элементы массива кратны номеру, под которым они стоят");
+    else
+        Console.WriteLine("Не все элементы массива кратны номеру, под которым они стоят");
+        
+    for (int i = 0; i < a.Length; i++) // Положение первого четного элемента
+    {
+        if (a[i] % 2 == 0)
+        {
+            Console.WriteLine("Первый четный элемент массива стоит под номером " + (i+1));
+            break;
+        }
+    }
+    
+    for (int i = (a.Length - 1); i >= 0; i--) // Положение последнего 0-го элемента
+    {
+        if (a[i] == 0)
+        {
+            nol = i;
+            Console.WriteLine("Последний 0-й элемент массива стоит под номером " + (i+1));
+            break;
+        }
+    }
+    if (nol == -1)
+        Console.WriteLine("Не существует 0-го элемента массива");
+    
+    for (int i = 0; i < a.Length; i++) // мин элемент
+    {
+        
+        if (a[i] < min)
+        {
+            min = a[i];
+        }
+    }
+    for (int i = 0; i < a.Length; i++) // кратность мин элементу
+    {
+        
+        if (a[i] % min == 0)
+        {
+            counter += 1;
+        }
+    }
+    Console.WriteLine("Количество элементов кратных минимальному элементу массива " + counter);
+
+    for (int i = 0; i < a.Length; i++) // макс элемент
+    {
+        
+        if (a[i] > max)
+        {
+            max = a[i];
+        }
+    }
+    for (int i = 0; i < a.Length; i++)  
+    {
+        
+        if (a[i] == min)
+        {
+            mn = i;
+        }
+        if (a[i] == max)
+        {
+            mx = i;
+        }
+    }
+    if (min == max) // между мин и макс элементами убывающая последовательность?
+    {
+        Console.WriteLine("Один элемент в последовательности");
+    }
+    else
+    {
+        if (mn + 1 == mx || mx + 1 == mn) 
+        {
+            Console.WriteLine("Нет эленментов между максимальным и минимальным элементами массива");
+        }
+        else
+        {
+            if (mn + 2 == mx || mx + 2 == mn) 
+            {
+                Console.WriteLine("Один эленмент между максимальным и минимальным элементами массива");
+            }
+            else
+            {
+                if (mn < mx)
+                {
+                    for (int i = (mn+1); i < mx; i++) 
+                    {
+                        
+                        if (a[i] > a[i+1])
+                        {
+                            r = true;
+                        }
+                        else
+                        {
+                            r = false;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = (mx+1); i < mn; i++)  
+                    {
+                        
+                        if (a[i] > a[i+1])
+                        {
+                            e = true;
+                        }
+                        else
+                        {
+                            e = false;
+                            break;
+                        }
+                    }
+                }
+                if ((r == false) && (e == false))
+                    Console.WriteLine("Элементы расположенные между минимальным и максимальным элементами массива не образуют убывающую последовательность");
+                else
+                    Console.WriteLine("Элементы расположенные между минимальным и максимальным элементами массива образуют убывающую последовательность");
+            
+            }
+            }
+    }
+  }
+}
