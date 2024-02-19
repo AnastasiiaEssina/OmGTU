@@ -3,10 +3,12 @@ class TrapezoidalRule{
         double summ = 0;
         double current_posx = a;
         while (current_posx < b){
-            if (current_posx > b){
-                current_posx = b;
-            }
             current_posx += dx;
+            if (current_posx > b){
+                dx = Math.Abs((current_posx-b));
+                current_posx = b;
+
+            }
             double p = Math.Abs(((f(current_posx-dx)+f(current_posx))*dx)/2);
             summ += p;
 
@@ -16,7 +18,7 @@ class TrapezoidalRule{
 }
 
 Func<double, double> f = (double x) => -x*x + 9;
-double a = -3;
-double b = 3;
+double a = 1;
+double b = 4;
 double dx = 0.1;
 Console.WriteLine(TrapezoidalRule.Solve(f,a,b,dx));
