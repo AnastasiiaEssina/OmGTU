@@ -7,7 +7,7 @@ class TrapezoidalRule{
                 current_posx = b;
             }
             current_posx += dx;
-            double p = ((f(current_posx-dx)+f(current_posx))*dx)/2;
+            double p = Math.Abs(((f(current_posx-dx)+f(current_posx))*dx)/2);
             summ += p;
 
         }
