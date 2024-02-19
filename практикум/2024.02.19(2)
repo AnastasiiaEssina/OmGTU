@@ -1,19 +1,22 @@
 class TrapezoidalRule{
     public static double Solve(Func<Double, Double> f, double a, double b, double dx){
         double summ = 0;
-        double current_posx = a;
-        while (current_posx < b){
-            current_posx += dx;
-            if (current_posx > b){
-                dx = Math.Abs((current_posx-b));
-                current_posx = b;
-
+        if (Math.Abs(a)<eps) {throw new ArgumentException ("Шаг побольше надо!!!");}
+        else {
+            double current_posx = a;
+            while (current_posx < b){
+                current_posx += dx;
+                if (current_posx > b){
+                    dx = Math.Abs((current_posx-b));
+                    current_posx = b;
+    
+                }
+                double p = Math.Abs(((f(current_posx-dx)+f(current_posx))*dx)/2);
+                summ += p;
+    
             }
-            double p = Math.Abs(((f(current_posx-dx)+f(current_posx))*dx)/2);
-            summ += p;
-
+            return summ;
         }
-        return summ;
     }
 }
 
