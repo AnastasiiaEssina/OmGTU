@@ -2,7 +2,6 @@ f = open("temp", "r")
 lines = [s.strip() for s in f.readlines()]
 
 
-magic = ""
 parts_of_magic = []
 for line in lines:
     comps = line.split(" ")
