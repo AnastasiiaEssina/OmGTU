@@ -66,17 +66,20 @@ class Program
             {
                 string number_from = e2.Key;
                 int m = 0;
-                
-                foreach(var e3 in e2.Value)
+                string current_num = number_from;
+                string favorite_num_to = "";
+
+                foreach (var e3 in e2.Value)
                 {
                     string number_to = e3.Key;
                     int talk_time = e3.Value;
                     if (m < talk_time)
                     {
                         m = talk_time;
+                        favorite_num_to = number_to;
                     }
                 }
-                Console.WriteLine($"Абонент с номером {number_from} разговаривал максимум {m} минут");
+                Console.WriteLine($"Абонент с номером {current_num} разговаривал c {favorite_num_to} максимум {m} минут");
 
             }
 
