@@ -80,7 +80,7 @@ class Program
                         favorite_num_to = number_to;
                     }
                 }
-                Console.WriteLine($"Абонент с номером {current_num} разговаривал c {favorite_num_to} максимум {m} минут");
+                Console.WriteLine($"{data} Абонент с номером {current_num} разговаривал c {favorite_num_to} максимум {m} минут");
 
             }
 
