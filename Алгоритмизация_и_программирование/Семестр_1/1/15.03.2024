@@ -33,7 +33,7 @@ class Program
 
         Console.WriteLine("И ещё раз тоже самое введите");
 
-        Dictionary<string, Dictionary<string, int>> second_task_data = new Dictionary<string, Dictionary<string, int>>(); // {date: {number_from: {number_to: count}}}
+        Dictionary<string, Dictionary<string, int>> second_task_data = new Dictionary<string, Dictionary<string, int>>(); 
         for (int i = 0; i < str_count; i++)
         {
             s = Console.ReadLine().Split(' ');
@@ -46,7 +46,7 @@ class Program
 
             if (!second_task_data.ContainsKey(date)) { second_task_data.Add(date, new Dictionary<string, int>()); }
             if (!second_task_data[date].ContainsKey(number_from)) { second_task_data[date].Add(number_from, talk_time); }
-            // first_task_data[date][number_from][number_to] = first_task_data[date][number_from][number_to] + 1;
+            
 
         }
 
