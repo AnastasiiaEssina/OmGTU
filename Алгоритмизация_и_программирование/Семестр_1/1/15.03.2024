@@ -33,6 +33,7 @@ class Program
             if (!second_task_data.ContainsKey(date)) { second_task_data.Add(date, new Dictionary<string, Dictionary<string, int>>()); }
             if (!second_task_data[date].ContainsKey(number_from)) { second_task_data[date].Add(number_from, new Dictionary<string, int>()); }
             if (!second_task_data[date][number_from].ContainsKey(number_to)) { second_task_data[date][number_from].Add(number_to, talk_time); }
+            if (second_task_data[date][number_from][number_to] < talk_time) { second_task_data[date][number_from][number_to] = talk_time; }
 
         }
 
