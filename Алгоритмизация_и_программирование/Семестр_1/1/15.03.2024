@@ -36,9 +36,7 @@ class Program
 
         }
 
-        
 
-        int c = 0;
         Console.WriteLine("Введите номер абонента, для получения информации ");
         string need_number = Console.ReadLine();
         foreach (var e1 in first_task_data)
@@ -55,8 +53,6 @@ class Program
                         string number_to = e3.Key;
                         int calls_count = e3.Value;
                         Console.WriteLine($"{number_to} - {calls_count} звонков");
-                        c = calls_count;
-
 
                     }
                 }
