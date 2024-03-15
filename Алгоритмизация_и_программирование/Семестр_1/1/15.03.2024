@@ -14,26 +14,7 @@ class Program
         string[] s;
 
         Dictionary<string, Dictionary<string, Dictionary<string, int>>> first_task_data = new Dictionary<string, Dictionary<string, Dictionary<string, int>>>(); // {date: {number_from: {number_to: count}}}
-        for (int i = 0; i < str_count; i++)
-        {
-            s = Console.ReadLine().Split(' ');
-            string number_from = s[0];
-            string number_to = s[1];
-            string date = s[2];
-            string talk_time = s[3];
-
-
-
-            if (!first_task_data.ContainsKey(date)) { first_task_data.Add(date, new Dictionary<string, Dictionary<string, int>>()); }
-            if (!first_task_data[date].ContainsKey(number_from)) { first_task_data[date].Add(number_from, new Dictionary<string, int>()); }
-            if (!first_task_data[date][number_from].ContainsKey(number_to)) { first_task_data[date][number_from].Add(number_to, 0); }
-            first_task_data[date][number_from][number_to] = first_task_data[date][number_from][number_to] + 1;
-
-        }
-
-        Console.WriteLine("И ещё раз тоже самое введите");
-
-        Dictionary<string, Dictionary<string, int>> second_task_data = new Dictionary<string, Dictionary<string, int>>(); 
+        Dictionary<string, Dictionary<string, Dictionary<string, int>>> second_task_data = new Dictionary<string, Dictionary<string, Dictionary<string, int>>>();
         for (int i = 0; i < str_count; i++)
         {
             s = Console.ReadLine().Split(' ');
@@ -44,11 +25,18 @@ class Program
 
 
 
-            if (!second_task_data.ContainsKey(date)) { second_task_data.Add(date, new Dictionary<string, int>()); }
-            if (!second_task_data[date].ContainsKey(number_from)) { second_task_data[date].Add(number_from, talk_time); }
-            
+            if (!first_task_data.ContainsKey(date)) { first_task_data.Add(date, new Dictionary<string, Dictionary<string, int>>()); }
+            if (!first_task_data[date].ContainsKey(number_from)) { first_task_data[date].Add(number_from, new Dictionary<string, int>()); }
+            if (!first_task_data[date][number_from].ContainsKey(number_to)) { first_task_data[date][number_from].Add(number_to, 0); }
+            first_task_data[date][number_from][number_to] = first_task_data[date][number_from][number_to] + 1;
+
+            if (!second_task_data.ContainsKey(date)) { second_task_data.Add(date, new Dictionary<string, Dictionary<string, int>>()); }
+            if (!second_task_data[date].ContainsKey(number_from)) { second_task_data[date].Add(number_from, new Dictionary<string, int>()); }
+            if (!second_task_data[date][number_from].ContainsKey(number_to)) { second_task_data[date][number_from].Add(number_to, talk_time); }
 
         }
+
+        
 
         int c = 0;
         Console.WriteLine("Введите номер абонента, для получения информации ");
@@ -90,14 +78,10 @@ class Program
 
             
             Console.WriteLine($"Абонент с номером {number_from} разговаривал максимум {m} минут");
-                
-                
 
             }
 
         }
-
-
 
         Console.ReadKey();
     }
