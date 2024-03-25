@@ -12,13 +12,13 @@ def get_min_mark_point(marks, checked_points):
         if e[0] not in checked_points:
             if e[1] < min_val:
                 min_val = e[1]
-                key = e[0]
+                key = int(e[0])
     return [key, min_val]
 
 def get_neighbours(weight_matrix, point):
     neighbours = []
-    for j in range(1, len(points ) +1):
-        if weight_matrix[point][j] != float('inf'):
+    for j in range(1, len(points) +1):
+        if weight_matrix[int(point)][j] != float('inf'):
             neighbours.append(j)
     return neighbours
 
@@ -26,9 +26,11 @@ def Dijkstra(weight_matrix, start, finish):
     # Show_weigth_matrix(weight_matrix)
     checked_points = []
     marks = dict()
+    back_way = dict()
     for p in points:
         if p == start:
             marks[p] = 0
+            back_way[p] = p
         else:
             marks[p] = float("inf")
     while (len(points) != len(checked_points)) and (finish not in checked_points):
@@ -37,8 +39,12 @@ def Dijkstra(weight_matrix, start, finish):
         neighbours = get_neighbours(weight_matrix, min_mark_point)
         for nei in neighbours:
             if nei not in checked_points:
-                marks[nei] = min([marks[nei], min_mark +weight_matrix[min_mark_point][nei]])
+                if marks[nei] > min_mark +weight_matrix[min_mark_point][nei]:
+                    marks[nei] = min_mark +weight_matrix[min_mark_point][nei]
+                    back_way[nei] = min_mark_point
+                #marks[nei] = min([marks[nei], min_mark +weight_matrix[min_mark_point][nei]])
         checked_points.append(min_mark_point)
+    print("Ребра, входящие в минимальное остовное дерево: "+str(back_way))
     return marks[finish]
 
 edges = []
@@ -67,7 +73,7 @@ for p in range(0, len(points ) +1):
 for e in edges:
     weigth_matrix[e[0]][e[1]] = e[2]
     weigth_matrix[e[1]][e[0]] = e[2]
-
+Show_weigth_matrix(weigth_matrix)
 start = int(input("Введите начальную точку: "))
 finish = int(input("Введите конечную точку: "))
 
