@@ -1,4 +1,3 @@
-
 def Show_weigth_matrix(weigth_matrix):
     print("--------------------")
     for line in weigth_matrix:
