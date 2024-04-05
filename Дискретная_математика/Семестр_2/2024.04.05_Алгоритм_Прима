@@ -1,5 +1,3 @@
-
-
 def prima(edges):
     cost = 0
     points = set()
