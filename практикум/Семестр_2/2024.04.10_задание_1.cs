@@ -29,7 +29,6 @@ namespace _2024._04._10___практикум_
 
 
             StringBuilder sb = new StringBuilder("0123456789");
-            sb[0] = char.Parse(rand.Next(10).ToString());
             Stopwatch stopWatch2 = new Stopwatch();
             stopWatch2.Start();
             for (int i = 0; i < 1000000; i++)
