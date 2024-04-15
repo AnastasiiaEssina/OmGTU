@@ -21,7 +21,7 @@ namespace _2024._04._10___практикум_
             for (int i = 0; i < 1000000; i++)
             {
                 y = i % 10;
-                str = str.Remove(y, 1).Insert(y, rand.Next(10).ToString());//не совсем прравильно, т к случайные только цифры, а не все символы
+                str = str.Remove(y, 1).Insert(y, rand.Next(10).ToString());
             }
 
             stopWatch1.Stop();
