@@ -10,7 +10,6 @@ namespace stack__скобки_
     {
         static void Main(string[] args)
         {
-            //char a = Convert.ToChar(Console.ReadLine());
             Console.WriteLine("Введите последовательность скобок");
             string c = Console.ReadLine();
             bool flag = true;
