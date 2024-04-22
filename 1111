@@ -1,0 +1,43 @@
+def ShowMatrix(matrix):
+    for line in matrix:
+        print(line)
+
+def Priv(matrix):
+    w = 0
+    flag = True
+    for i in range(0, len(matrix[0])):
+        min = matrix[i][0]
+        for j in range(0, len(matrix)):
+            if matrix[i][j] < min:
+                min = matrix[i][j]
+        for j in range(0, len(matrix)):
+            matrix[i][j] = matrix[i][j] - min
+        w += min
+    return [w, matrix]
+
+inf = float("inf")
+matrix = [
+    [inf, 6, 11],
+    [1, inf, 10],
+    [9, 8, inf],
+]
+ShowMatrix(Priv(matrix)[1])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
