@@ -7,6 +7,7 @@ class HelloWorld {
     
     //нахождение минимума по строкам
     int min;
+    int a = 0;
     for (int i = 0; i < 5; i++ )
     {
         min = Matrix[i, 0];
@@ -21,6 +22,7 @@ class HelloWorld {
         {
             Matrix[i, j] = Matrix[i, j] - min;
         }
+        a+=min;
     }
     
     //нахождение минимума по столбцам
@@ -36,8 +38,9 @@ class HelloWorld {
         }
         for (int j = 0; j < 5; j++)
         {
-            Matrix[j, i] = Matrix[j, i] - min;
+            ///Matrix[j, i] = Matrix[j, i] - min;
         }
+        a+=min;
     }
   }
 }
