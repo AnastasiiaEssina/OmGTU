@@ -2,42 +2,108 @@ def ShowMatrix(matrix):
     for line in matrix:
         print(line)
 
+def Delite(matrix, del_i, del_j):
+    new_matrix = []
+    for i in range(0, len(matrix)):
+        if i != del_i:
+            new_matrix.append([])
+            for j in range(0, len(matrix)):
+                if j != del_j:
+                    new_matrix[-1].append(matrix[i][j])
+    return new_matrix
+
+def find_min(matrix):
+    m_i = 0
+    m_j = 0
+    m_coords = []
+    for i in range(0, len(matrix)):
+        for j in range(0, len(matrix)):
+            if matrix[i][j] == 0:
+                m_i = i
+                m_j = j
+                m_coords.append([m_i, m_j])
+    marks = []
+    for zero in m_coords:
+        stolbetc = [matrix[i][zero[1]] for i in range(0, len(matrix))]
+        stroka = [matrix[zero[0]][i] for i in range(0, len(matrix))]
+        stolbetc.pop(zero[0])
+        stroka.pop(zero[1])
+        s = min(stroka) + min(stolbetc)
+        marks.append(s)
+    return m_coords[marks.index(min(marks))]
+def way_blocker(matrix, ways):
+    new_matrix = []
+    for i in range(0, len(matrix)):
+        new_matrix.append(matrix[i][:])
+    for way in ways:
+        try:
+            new_matrix[way[1]][way[0]] = inf
+        except:
+            pass
+    t_ways = []
+    old_len = -1
+    while old_len != len(t_ways):
+        old_len = len(t_ways)
+        for w1 in ways:
+            for w2 in ways:
+                if w1[1] == w2[0]:
+                    t_ways.append([w1[0], w2[1]])
+    for way in t_ways:
+        try:
+            new_matrix[way[1]][way[0]] = inf
+        except:
+            pass
+    return new_matrix
 def Priv(matrix):
     w = 0
     flag = True
-    for i in range(0, len(matrix[0])):
-        min = matrix[i][0]
+    for i in range(0, len(matrix)):
+        m = matrix[i][0]
         for j in range(0, len(matrix)):
-            if matrix[i][j] < min:
-                min = matrix[i][j]
+            if matrix[i][j] < m:
+                m = matrix[i][j]
         for j in range(0, len(matrix)):
-            matrix[i][j] = matrix[i][j] - min
-        w += min
+            matrix[i][j] = matrix[i][j] - m
+        w += m
+    for j in range(0, len(matrix)):
+        m = inf
+        for i in range(0, len(matrix)):
+            m = min([m, matrix[i][j]])
+        for i in range(0, len(matrix)):
+            matrix[i][j] = matrix[i][j] - m
+        w += m
     return [w, matrix]
 
 inf = float("inf")
-matrix = [
-    [inf, 6, 11],
-    [1, inf, 10],
-    [9, 8, inf],
-]
-ShowMatrix(Priv(matrix)[1])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+matrix = [ [ inf, 41, 17, 23, 32 ], [ 13, inf,  45, 12, 37 ], [ 80, 45, inf, 50, 64], [ 23, 12,50, inf, 67 ], [32, 37, 64, 67, inf ]]
+old_matrix = [e[:] for e in matrix]
+upper_plate = [i for i in range(0, len(matrix))]
+left_plate = upper_plate[:]
+ways = []
+global_ways = []
+weight = 0
+ww = 0
+while len(matrix) != 2:
+    w, mat = Priv(matrix)
+    ww += w
+    #ShowMatrix(mat)
+    del_coords = find_min(matrix)
+    global_ways.append([left_plate[del_coords[0]], upper_plate[del_coords[1]]])
+    weight += old_matrix[global_ways[-1][0]][global_ways[-1][1]]
+    upper_plate.pop(del_coords[1])
+    left_plate.pop(del_coords[0])
+    ways.append(del_coords)
+    matrix = way_blocker(matrix, ways)
+    matrix = Delite(matrix, del_coords[0], del_coords[1])
+coords = find_min(matrix)
+ww += matrix[coords[0]][coords[1]]
+weight += old_matrix[left_plate[coords[0]]][upper_plate[coords[1]]]
+global_ways.append([left_plate[coords[0]], upper_plate[coords[1]]])
+global_ways.append([global_ways[-1][1], global_ways[0][0]])
+weight += old_matrix[global_ways[-1][0]][global_ways[-1][1]]
+for i in range(0, len(global_ways)):
+    global_ways[i][0] = global_ways[i][0]+1
+    global_ways[i][1] = global_ways[i][1]+1
+print(global_ways)
+print(weight)
+ShowMatrix(matrix)
