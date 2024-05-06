@@ -1,0 +1,129 @@
+using System;
+using System.Collections.Generic;
+
+namespace РГР_2
+{
+    class Program
+    {
+        // польская запись
+        
+        public static void Polish_notation()
+        {
+            Console.WriteLine("Введите выражение: ");
+            string phrase = Console.ReadLine();
+            Stack<string> expression = new Stack<string>();
+            double result = 0;
+            double a;
+            double b;
+            bool flag = false;
+            foreach (char i in phrase)
+            {
+                if (i == '+' || i == '-' || i == '*' || i == '/')
+                {
+                    if (expression.Count < 2) {
+                        Console.WriteLine("Ошибка: Отсутствие элемента для выполнения вычисления"); flag = true; break; }
+                    if (expression.Count > 2) { Console.WriteLine("Ошибка: Неоднозначность результата"); flag = true; break; }
+                    b = Convert.ToDouble(expression.Pop());
+                    a = Convert.ToDouble(expression.Pop());
+                    if (b == 0) { Console.WriteLine("Ошибка: Деление на ноль"); flag = true; break; }
+                    if (i == '+') { result = a + b; }
+                    if (i == '-') { result = a - b; }
+                    if (i == '*') { result = a * b; }
+                    if (i == '/') { result = a / b; }
+                    expression.Push(Convert.ToString(result));
+                }
+                else
+                {
+                    if (i != ' ')
+                    {
+                        expression.Push(Convert.ToString(i));
+                    }
+                }
+            }
+            if (flag == false) { Console.WriteLine("Результат вычисления: " + expression.Pop()); }
+            Console.WriteLine("Нажмите Enter для перехода к меню");
+            Console.ReadLine();
+        }
+
+        // скобки
+        static void Brackets()
+        {
+            //char a = Convert.ToChar(Console.ReadLine());
+            Console.WriteLine("Введите последовательность скобок");
+            string c = Console.ReadLine();
+            bool flag = true;
+            Stack<char> bracket = new Stack<char>();
+            foreach (char i in c)
+            {
+                if ((i == '{') || (i == '[') || (i == '('))
+                {
+                    bracket.Push(i);
+                }
+                if (i == ']')
+                {
+                    if ((bracket.Count == 0) || (bracket.Pop() != '[')) { flag = false; break; }
+                }
+                if (i == '}')
+                {
+                    if ((bracket.Count == 0) || (bracket.Pop() != '{')) { flag = false; break; }
+                }
+                if (i == ')')
+                {
+                    if ((bracket.Count == 0) || (bracket.Pop() != '(')) { flag = false; break; }
+                }
+            }
+            if (bracket.Count != 0)
+                flag = false;
+            if (flag == false)
+                Console.WriteLine("Скобки расставлениы неверно");
+            else
+                Console.WriteLine("Скобки расставлениы верно");
+            Console.WriteLine("Нажмите Enter для перехода к меню");
+            Console.ReadLine();
+        }
+        static void Author()
+        {
+            Console.WriteLine("Сведения об авторе:");
+            Console.WriteLine("Программу разработала Ессина Анастасия Антоновна");
+            Console.WriteLine("Группа: ФИТ-231");
+            Console.WriteLine("Программа была разработана для выполнения расчетно-графической работы по дисциплине \"Алгоритмизация и программирование\"");
+            Console.WriteLine("Нажмите Enter для перехода к меню");
+            Console.ReadLine();
+        }
+
+
+        // меню
+        public static int Menu()
+        {
+            Console.WriteLine("Выберите с чем будем работать: ");
+            Console.WriteLine("0) Сведения об авторе");
+            Console.WriteLine("1) Обратная польская запись");
+            Console.WriteLine("2) Скобочная последовательность");
+            Console.WriteLine("3) Выход");
+            return Convert.ToInt32(Console.ReadLine());
+        }
+        public static void Main()
+        {
+            
+            int c = 0;
+            while (c != 3)
+            {
+                c = Menu();
+                if (c == 0)
+                {
+                    Author();
+                }
+                if (c == 1)
+                {
+                    Polish_notation();
+                }
+                if (c == 2)
+                {
+                    Brackets();
+                }
+
+            }
+        }
+    }
+    
+}
