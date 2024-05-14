@@ -34,12 +34,9 @@ class Program {
     foreach (var i in a){
         Console.WriteLine(i.FIO);
     }
-    /*var tovar_po_price = from t in tov group t by t.category;
-    var max_price_tovara = from t in tovar_po_price select new {a = t.Key, ib = t.Max(c => c.price)};*/
-    //var b = from p in info group p by p.pcs_price;
-    //var b1 = from p in b select new {e = p.Key, r = p.}
+
     var b = (from person in info 
-    select person.pcs_price).Sum();
+    select person.quantity_of_goods).Sum();
     Console.WriteLine($"Количество единиц продукта по всем сотрудникам: {b}");
 
     var summ_price = (from p in info select p.quantity_of_goods*p.pcs_price).Sum();
