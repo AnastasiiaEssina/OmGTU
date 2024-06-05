@@ -1,0 +1,71 @@
+using System.Diagnostics;
+using System.Formats.Asn1;
+using System.Reflection;
+using System.Text;
+
+string assemblyFile = "c:/core.dll";
+Assembly assem = Assembly.LoadFrom(assemblyFile); // Загрузка файла в переменную
+Type[] types = assem.GetTypes(); // Получаем массив типов
+//types.Where(t => t.IsClass).ToList().ForEach(cl => Console.WriteLine(cl.FullName));
+
+var pClasses = types.Where(t => t.IsClass || t.IsInterface).ToArray();
+
+//ВАРИАНТ 1
+foreach (var cl in pClasses)
+{
+    Console.WriteLine($"Класс/Интерфейс: {cl.FullName}");
+    
+    var pMetods = cl.GetMethods().ToArray();
+    foreach (var m in pMetods)
+    {
+        Console.WriteLine($"\tМетод: {m.Name}: {m.ReturnType}");
+        m.GetParameters().ToList().ForEach(p => Console.WriteLine($"\t\tПараметр (<имя>: <тип>): {p.Name}: {p.ParameterType}"));     
+    }
+} 
+
+//ВАРИАНТ 2
+/*foreach (var cl in pClasses)
+{
+    Console.WriteLine($"Класс/Интерфейс: {cl.FullName}");
+
+    var m_select = cl.GetMethods().ToList()
+        .Select(m => new {
+            ppMetodName = $"\tМетод: {m.Name}: {m.ReturnType}",
+            ppListParam = m.GetParameters().Select(p => $"\t\tПараметр (<имя>: <тип>): {p.Name}: {p.ParameterType}")}
+        );
+
+    foreach (var m in m_select)
+    {
+        Console.WriteLine(m.ppMetodName);
+        
+        foreach (var p in m.ppListParam)
+        {
+            Console.WriteLine(p);
+        }
+    }
+}*/
+
+
+//ВАРИАНТ 3
+var ppClassInfo = pClasses.Select(cl => 
+    new {ppClassName = $"Класс/Интерфейс: {cl.FullName}",
+        ppMetodInfo = cl.GetMethods().ToList().Select(m => 
+            new {
+                ppMetodName = $"\tМетод: {m.Name}: {m.ReturnType}",
+                ppListParam = m.GetParameters().Select(p => $"\t\tПараметр (<имя>: <тип>): {p.Name}: {p.ParameterType}")
+            }
+        )
+    }
+);
+
+foreach (var cl in ppClassInfo) {
+    Console.WriteLine(cl.ppClassName);
+
+    foreach (var m in cl.ppMetodInfo) {
+        Console.WriteLine(m.ppMetodName);
+
+        foreach (var p in m.ppListParam) {
+            Console.WriteLine(p);
+        }
+    }    
+}
